@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Star Wars Character App</string>
+    <string name="birthyear">Birthyear: </string>
+    <string name="homeworld">HomeWorld: </string>
+    <string name="sort_style_name">Sort by: name</string>
+    <string name="sort_style_birthyear">Sort by: birthyear</string>
 </resources>

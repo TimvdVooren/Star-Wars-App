@@ -15,4 +15,8 @@ public class StarWarsPlanet {
     private String population;
     private ArrayList<StarWarsCharacter> residents;
     private ArrayList<StarWarsFilm> films;
+
+    public String getName() {
+        return name;
+    }
 }
