@@ -40,6 +40,10 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
 
         viewHolder.characterName.setText(character.getName());
         viewHolder.characterBirthyear.setText(character.getBirth_year());
+        if (character.isFavourite())
+            viewHolder.favouriteButton.setImageResource(R.drawable.star_filled);
+        else
+            viewHolder.favouriteButton.setImageResource(R.drawable.star_outlined);
     }
 
     @Override
@@ -73,6 +77,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                             favouriteButton.setImageResource(R.drawable.star_outlined);
                             MainActivity.removeCharacterFromFavourites(currentCharacter);
                         }
+                        notifyDataSetChanged();
                     }
                 }
             });
