@@ -18,7 +18,7 @@ public class StarWarsCharacter implements Comparable<StarWarsCharacter>, Seriali
     private ArrayList<StarWarsVehicle> vehicles;
     private ArrayList<StarWarsStarShip> star_ships;
 
-    private boolean favorite;
+    private boolean favourite = false;
 
     public StarWarsCharacter(String name, String height, String mass, String hair_color, String skin_color, String eye_color, String birth_year, String gender, ArrayList<StarWarsFilm> films, ArrayList<StarWarsSpecies> species, ArrayList<StarWarsVehicle> vehicles, ArrayList<StarWarsStarShip> star_ships) {
         this.name = name;
@@ -40,8 +40,8 @@ public class StarWarsCharacter implements Comparable<StarWarsCharacter>, Seriali
         this.birth_year = birth_year;
     }
 
-    public void toggleFavorite(){
-        favorite = !favorite;
+    public void toggleFavourite(){
+        favourite = !favourite;
     }
 
     public String getName() {
@@ -96,8 +96,8 @@ public class StarWarsCharacter implements Comparable<StarWarsCharacter>, Seriali
         return star_ships;
     }
 
-    public boolean isFavorite() {
-        return favorite;
+    public boolean isFavourite() {
+        return favourite;
     }
 
     @Override

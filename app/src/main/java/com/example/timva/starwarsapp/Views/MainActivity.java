@@ -16,6 +16,7 @@ import com.example.timva.starwarsapp.R;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
     //Views
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Variables
     private ArrayList<StarWarsCharacter> characterList;
+    private static ArrayList<StarWarsCharacter> favourites;
     private CustomRecyclerAdapter recyclerAdapter;
     private boolean sortByName = true;
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         characterList.add(new StarWarsCharacter("Joep", "1998"));
         characterList.add(new StarWarsCharacter("Zoë", "1997"));
 
+        favourites = new ArrayList<>();
+
         Collections.sort(characterList);
 
         //View declaration
@@ -49,6 +53,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
 
         setListeners();
+    }
+
+    public static void addCharacterToFavourites(StarWarsCharacter character){
+        favourites.add(character);
+    }
+
+    public static void removeCharacterFromFavourites(StarWarsCharacter character){
+        Iterator<StarWarsCharacter> itr = favourites.iterator();
+        while(itr.hasNext())
+            if(itr.next().equals(character))
+                itr.remove();
     }
 
     private void setListeners() {
@@ -65,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(characterList, new Comparator<StarWarsCharacter>() {
                         @Override
                         public int compare(StarWarsCharacter o1, StarWarsCharacter o2) {
-                            return o1.getName().compareTo(o2.getName());
+                            return o1.getBirth_year().compareTo(o2.getBirth_year());
                         }
                     });
                     recyclerAdapter.notifyDataSetChanged();

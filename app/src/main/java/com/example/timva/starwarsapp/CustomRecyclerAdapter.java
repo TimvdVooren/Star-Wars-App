@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
 import com.example.timva.starwarsapp.Views.DetailedActivity;
+import com.example.timva.starwarsapp.Views.MainActivity;
 
 import java.util.List;
 
@@ -48,26 +50,29 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView characterName;
         TextView characterBirthyear;
-        ImageButton favoriteButton;
+        ImageButton favouriteButton;
 
         public ViewHolder(View itemView, final Context c) {
             super(itemView);
 
             characterName = itemView.findViewById(R.id.ListCharacterName);
             characterBirthyear = itemView.findViewById(R.id.ListBirthyear);
-            favoriteButton = itemView.findViewById(R.id.ListFavoriteButton);
-            favoriteButton.setColorFilter(R.color.colorPrimary);
+            favouriteButton = itemView.findViewById(R.id.ListFavouriteButton);
 
-            favoriteButton.setOnClickListener(new View.OnClickListener() {
+            favouriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getAdapterPosition() >= 0){
+                    if (getAdapterPosition() >= 0) {
                         StarWarsCharacter currentCharacter = characters.get(getAdapterPosition());
-                        currentCharacter.toggleFavorite();
-                        if(currentCharacter.isFavorite())
-                            favoriteButton.setColorFilter(R.color.colorAccent);
-                        else
-                            favoriteButton.setColorFilter(R.color.colorPrimary);
+                        currentCharacter.toggleFavourite();
+                        if (currentCharacter.isFavourite()) {
+                            favouriteButton.setImageResource(R.drawable.star_filled);
+                            MainActivity.addCharacterToFavourites(currentCharacter);
+                        }
+                        else {
+                            favouriteButton.setImageResource(R.drawable.star_outlined);
+                            MainActivity.removeCharacterFromFavourites(currentCharacter);
+                        }
                     }
                 }
             });
