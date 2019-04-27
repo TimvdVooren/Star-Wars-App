@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.timva.starwarsapp.Data.StarWarsFilm;
 import com.example.timva.starwarsapp.Data.StarWarsList;
+import com.example.timva.starwarsapp.Data.StarWarsPlanet;
+import com.example.timva.starwarsapp.Data.StarWarsStarShip;
 import com.example.timva.starwarsapp.Services.CustomRecyclerAdapter;
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
 import com.example.timva.starwarsapp.R;
@@ -26,7 +29,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity implements VolleyListener {
     //Views
@@ -139,7 +141,20 @@ public class MainActivity extends AppCompatActivity implements VolleyListener {
                     Comparator<StarWarsCharacter> characterComparator = new Comparator<StarWarsCharacter>() {
                         @Override
                         public int compare(StarWarsCharacter o1, StarWarsCharacter o2) {
-                            return o1.birth_year.compareTo(o2.birth_year);
+                            if(o1.birth_year.equals("unknown"))
+                                o1.birth_year = "0BBY";
+                            if(o2.birth_year.equals("unknown"))
+                                o2.birth_year = "0BBY";
+
+                            double birthYear1 = Double.parseDouble(o1.birth_year.substring(0, o1.birth_year.length()-3));
+                            double birthYear2 = Double.parseDouble(o2.birth_year.substring(0, o2.birth_year.length()-3));
+
+                            if(o1.birth_year.equals("0BBY"))
+                                o1.birth_year = "unknown";
+                            if(o2.birth_year.equals("0BBY"))
+                                o2.birth_year = "unknown";
+                            
+                            return (int)(birthYear2 - birthYear1);
                         }
                     };
 
@@ -180,6 +195,28 @@ public class MainActivity extends AppCompatActivity implements VolleyListener {
     public void onCharactersLoaded() {
         Collections.sort(characterList);
         recyclerAdapter.notifyDataSetChanged();
+        for(StarWarsCharacter character : characterList) {
+            connection.getPlanetFromCharacter(character);
+            connection.getFilmsFromCharacter(character);
+        }
+
+        sortButton.setEnabled(true);
+        favouritesButton.setEnabled(true);
+    }
+
+    @Override
+    public void onPlanetAvailable(StarWarsCharacter character, StarWarsPlanet planet) {
+        character.homeworldPlanet = planet;
+    }
+
+    @Override
+    public void onFilmAvailable(StarWarsCharacter character, StarWarsFilm film) {
+        character.starWarsFilms.add(film);
+    }
+
+    @Override
+    public void onStarshipAvailable(StarWarsCharacter character, StarWarsStarShip starShip) {
+
     }
 
     @Override

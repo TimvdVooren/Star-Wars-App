@@ -1,21 +1,22 @@
 package com.example.timva.starwarsapp.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class StarWarsStarShip {
-    private String name;
-    private String model;
-    private String manufacturer;
-    private String cost_in_credits;
-    private String length;
-    private String max_atmosphering_speed;
-    private String crew;
-    private String passengers;
-    private String cargo_capacity;
-    private String consumables;
-    private String hyperdrive_rating;
-    private String MGLT;
-    private String starship_class;
-    private List<StarWarsCharacter> pilots;
-    private List<StarWarsFilm> films;
+public class StarWarsStarShip implements Serializable {
+    public String name;
+    public String model;
+    public String manufacturer;
+    public String cost_in_credits;
+    public String length;
+    public String max_atmosphering_speed;
+    public String crew;
+    public String passengers;
+    public String cargo_capacity;
+    public String consumables;
+    public String hyperdrive_rating;
+    public String MGLT;
+    public String starship_class;
+    public List<String> pilots;
+    public List<String> films;
 }

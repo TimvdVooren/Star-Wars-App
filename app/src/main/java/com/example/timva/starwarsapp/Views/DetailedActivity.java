@@ -8,7 +8,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
+import com.example.timva.starwarsapp.Data.StarWarsFilm;
 import com.example.timva.starwarsapp.R;
+
+import java.util.ArrayList;
 
 public class DetailedActivity extends AppCompatActivity {
     //Views
@@ -34,8 +37,14 @@ public class DetailedActivity extends AppCompatActivity {
         StarWarsCharacter character = (StarWarsCharacter) characterIntent.getSerializableExtra("StarWarsCharacter");
         characterName.setText(character.name);
         characterBirthyear.setText(getString(R.string.birthyear) + " " + character.birth_year);
-        //characterHomeworld.setText(getString(R.string.homeworld) + " " + character.getHomeworld().getName());
-        //filmList.setAdapter(new ArrayAdapter<String>(this, 0, character.getFilms()));
+
+//        characterHomeworld.setText(getString(R.string.homeworld) + " " + character.homeworldPlanet.name);
+//
+//        ArrayList<String> filmTitles = new ArrayList<>();
+//        for(StarWarsFilm film : character.starWarsFilms)
+//            filmTitles.add(film.title);
+//        filmList.setAdapter(new ArrayAdapter<String>(this, 0, filmTitles));
+
         //vehicleList.setAdapter(new ArrayAdapter<String>(this, 0, character.getVehicles());
     }
 }

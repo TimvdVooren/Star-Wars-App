@@ -3,6 +3,7 @@ package com.example.timva.starwarsapp.Data;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StarWarsCharacter implements Comparable<StarWarsCharacter>, Serializable {
@@ -15,21 +16,21 @@ public class StarWarsCharacter implements Comparable<StarWarsCharacter>, Seriali
     public String eye_color;
     public String birth_year;
     public String gender;
-
-    @JsonProperty("homeworld")
-    public String homeworldUrl;
-    @JsonProperty("films")
-    public List<String> filmUrls;
-    @JsonProperty("species")
-    public List<String> specieUrls;
-    @JsonProperty("vehicles")
-    public List<String> vehicleUrls;
-    @JsonProperty("starships")
-    public List<String> starShipUrls;
-
+    public String homeworld;
+    public List<String> films;
+    public List<String> species;
+    public List<String> vehicles;
+    public List<String> starships;
     public String created;
     public String edited;
     public String url;
+
+    public StarWarsPlanet homeworldPlanet;
+    public List<StarWarsFilm> starWarsFilms = new ArrayList<>();
+    public List<StarWarsSpecies> starWarsSpecies = new ArrayList<>();
+    public List<StarWarsVehicle> starWarsVehicles = new ArrayList<>();
+    public List<StarWarsStarShip> starWarsStarShips = new ArrayList<>();
+
 
     public boolean favourite = false;
 

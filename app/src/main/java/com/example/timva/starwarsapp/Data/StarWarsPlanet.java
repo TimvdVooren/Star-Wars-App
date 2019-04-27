@@ -1,22 +1,19 @@
 package com.example.timva.starwarsapp.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class StarWarsPlanet {
-    private String name;
-    private String rotation_period;
-    private String orbital_period;
-    private String diameter;
-    private String climate;
-    private String arid;
-    private String gravity;
-    private String terrain;
-    private String surface_water;
-    private String population;
-    private List<StarWarsCharacter> residents;
-    private List<StarWarsFilm> films;
-
-    public String getName() {
-        return name;
-    }
+public class StarWarsPlanet implements Serializable {
+    public String name;
+    public String rotation_period;
+    public String orbital_period;
+    public String diameter;
+    public String climate;
+    public String arid;
+    public String gravity;
+    public String terrain;
+    public String surface_water;
+    public String population;
+    public List<String> residents;
+    public List<String> films;
 }
