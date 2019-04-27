@@ -1,6 +1,6 @@
 package com.example.timva.starwarsapp.Data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class StarWarsSpecies {
     private String name;
@@ -13,6 +13,6 @@ public class StarWarsSpecies {
     private String average_lifespan;
     private StarWarsPlanet homeworld;
     private String language;
-    private ArrayList<StarWarsCharacter> people;
-    private ArrayList<StarWarsFilm> films;
+    private List<StarWarsCharacter> people;
+    private List<StarWarsFilm> films;
 }

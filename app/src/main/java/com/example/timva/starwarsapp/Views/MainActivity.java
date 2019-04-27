@@ -1,25 +1,34 @@
 package com.example.timva.starwarsapp.Views;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-import com.example.timva.starwarsapp.CustomRecyclerAdapter;
+import com.example.timva.starwarsapp.Data.StarWarsList;
+import com.example.timva.starwarsapp.Services.CustomRecyclerAdapter;
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
 import com.example.timva.starwarsapp.R;
+import com.example.timva.starwarsapp.Services.RetrofitClient;
+import com.example.timva.starwarsapp.Services.VolleyConnection;
+import com.example.timva.starwarsapp.Services.VolleyListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class MainActivity extends AppCompatActivity {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MainActivity extends AppCompatActivity implements VolleyListener {
     //Views
     private Button sortButton;
     private RecyclerView recyclerView;
@@ -31,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private CustomRecyclerAdapter recyclerAdapter;
     private boolean sortByName = true;
     private boolean favouritesPressed = false;
+    private VolleyConnection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +53,6 @@ public class MainActivity extends AppCompatActivity {
         favouritesButton = findViewById(R.id.MainFavouritesButton);
 
         characterList = new ArrayList<>();
-        //TODO load characters from API
-        characterList.add(new StarWarsCharacter("Tim", "2000"));
-        characterList.add(new StarWarsCharacter("Joep", "1998"));
-        characterList.add(new StarWarsCharacter("Zoë", "1997"));
-        Collections.sort(characterList);
-
         favourites = new ArrayList<>();
 
         recyclerView.setHasFixedSize(true);
@@ -56,8 +60,57 @@ public class MainActivity extends AppCompatActivity {
         recyclerAdapter = new CustomRecyclerAdapter(this, characterList);
         recyclerView.setAdapter(recyclerAdapter);
 
+        connection = VolleyConnection.getInstance(getApplicationContext(), this);
+        connection.getCharacters();
+
+        //getCharactersFromApi();
+
         setListeners();
     }
+
+//    int characterAmount = 0;
+//    private void getCharactersFromApi(){
+//        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
+//                .baseUrl("https://swapi.co/api/")
+//                .addConverterFactory(GsonConverterFactory.create());
+//        Retrofit retrofit = retrofitBuilder.build();
+//
+//        RetrofitClient client = retrofit.create(RetrofitClient.class);
+//
+//        //Get the character list
+//        Call<StarWarsList<StarWarsCharacter>> listCall = client.getCharacterList();
+//        listCall.enqueue(new Callback<StarWarsList<StarWarsCharacter>>() {
+//            @Override
+//            public void onResponse(Call<StarWarsList<StarWarsCharacter>> call, Response<StarWarsList<StarWarsCharacter>> response) {
+//                StarWarsList<StarWarsCharacter> starWarsList = response.body();
+//                characterAmount = starWarsList.count;
+//                Log.d("API LIST CALL", characterAmount + "");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<StarWarsList<StarWarsCharacter>> call, Throwable t) {
+//                Toast.makeText(getApplicationContext(), "Error: something went wrong with the API", Toast.LENGTH_LONG);
+//            }
+//        });
+//
+//        //Get all the characters and deserialize them
+//        for(int i = 0; i < characterAmount; i++){
+//            Call<StarWarsCharacter> characterCall = client.getCharacter(i);
+//            characterCall.enqueue(new Callback<StarWarsCharacter>() {
+//                @Override
+//                public void onResponse(Call<StarWarsCharacter> call, Response<StarWarsCharacter> response) {
+//                    StarWarsCharacter character = response.body();
+//                    characterList.add(character);
+//                    Log.d("API CHARACTER CALL", character + "");
+//                }
+//
+//                @Override
+//                public void onFailure(Call<StarWarsCharacter> call, Throwable t) {
+//                    Toast.makeText(getApplicationContext(), "Error: something went wrong with the API", Toast.LENGTH_LONG);
+//                }
+//            });
+//        }
+//    }
 
     public static void addCharacterToFavourites(StarWarsCharacter character){
         favourites.add(character);
@@ -86,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     Comparator<StarWarsCharacter> characterComparator = new Comparator<StarWarsCharacter>() {
                         @Override
                         public int compare(StarWarsCharacter o1, StarWarsCharacter o2) {
-                            return o1.getBirth_year().compareTo(o2.getBirth_year());
+                            return o1.birth_year.compareTo(o2.birth_year);
                         }
                     };
 
@@ -116,5 +169,21 @@ public class MainActivity extends AppCompatActivity {
                 favouritesPressed = !favouritesPressed;
             }
         });
+    }
+
+    @Override
+    public void onCharacterAvailable(StarWarsCharacter character) {
+        characterList.add(character);
+    }
+
+    @Override
+    public void onCharactersLoaded() {
+        Collections.sort(characterList);
+        recyclerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCharacterError() {
+        Toast.makeText(getApplicationContext(), "Error: something went wrong with the API", Toast.LENGTH_LONG);
     }
 }

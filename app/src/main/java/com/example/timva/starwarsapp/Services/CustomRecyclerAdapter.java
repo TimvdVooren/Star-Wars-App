@@ -1,10 +1,9 @@
-package com.example.timva.starwarsapp;
+package com.example.timva.starwarsapp.Services;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
+import com.example.timva.starwarsapp.R;
 import com.example.timva.starwarsapp.Views.DetailedActivity;
 import com.example.timva.starwarsapp.Views.MainActivity;
 
@@ -38,8 +38,8 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     public void onBindViewHolder(@NonNull CustomRecyclerAdapter.ViewHolder viewHolder, int i) {
         StarWarsCharacter character = characters.get(i);
 
-        viewHolder.characterName.setText(character.getName());
-        viewHolder.characterBirthyear.setText(character.getBirth_year());
+        viewHolder.characterName.setText(character.name);
+        viewHolder.characterBirthyear.setText(character.birth_year);
         if (character.isFavourite())
             viewHolder.favouriteButton.setImageResource(R.drawable.star_filled);
         else

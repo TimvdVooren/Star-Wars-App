@@ -1,6 +1,6 @@
 package com.example.timva.starwarsapp.Data;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class StarWarsVehicle {
     private String name;
@@ -14,6 +14,6 @@ public class StarWarsVehicle {
     private String cargo_capacity;
     private String consumables;
     private String vehicle_class;
-    private ArrayList<StarWarsCharacter> pilots;
-    private ArrayList<StarWarsFilm> films;
+    private List<StarWarsCharacter> pilots;
+    private List<StarWarsFilm> films;
 }

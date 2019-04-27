@@ -32,8 +32,8 @@ public class DetailedActivity extends AppCompatActivity {
 
         Intent characterIntent = getIntent();
         StarWarsCharacter character = (StarWarsCharacter) characterIntent.getSerializableExtra("StarWarsCharacter");
-        characterName.setText(character.getName());
-        characterBirthyear.setText(getString(R.string.birthyear) + " " + character.getBirth_year());
+        characterName.setText(character.name);
+        characterBirthyear.setText(getString(R.string.birthyear) + " " + character.birth_year);
         //characterHomeworld.setText(getString(R.string.homeworld) + " " + character.getHomeworld().getName());
         //filmList.setAdapter(new ArrayAdapter<String>(this, 0, character.getFilms()));
         //vehicleList.setAdapter(new ArrayAdapter<String>(this, 0, character.getVehicles());
