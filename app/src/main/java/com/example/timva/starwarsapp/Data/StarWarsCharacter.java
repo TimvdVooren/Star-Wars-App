@@ -1,7 +1,5 @@
 package com.example.timva.starwarsapp.Data;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +27,7 @@ public class StarWarsCharacter implements Comparable<StarWarsCharacter>, Seriali
     public List<StarWarsFilm> starWarsFilms = new ArrayList<>();
     public List<StarWarsSpecies> starWarsSpecies = new ArrayList<>();
     public List<StarWarsVehicle> starWarsVehicles = new ArrayList<>();
-    public List<StarWarsStarShip> starWarsStarShips = new ArrayList<>();
+    public List<StarWarsStarship> starWarsStarships = new ArrayList<>();
 
 
     public boolean favourite = false;

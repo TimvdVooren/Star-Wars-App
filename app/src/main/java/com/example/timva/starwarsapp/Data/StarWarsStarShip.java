@@ -3,7 +3,7 @@ package com.example.timva.starwarsapp.Data;
 import java.io.Serializable;
 import java.util.List;
 
-public class StarWarsStarShip implements Serializable {
+public class StarWarsStarship implements Serializable {
     public String name;
     public String model;
     public String manufacturer;

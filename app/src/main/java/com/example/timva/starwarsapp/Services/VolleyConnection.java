@@ -12,6 +12,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
 import com.example.timva.starwarsapp.Data.StarWarsFilm;
 import com.example.timva.starwarsapp.Data.StarWarsPlanet;
+import com.example.timva.starwarsapp.Data.StarWarsStarship;
+import com.example.timva.starwarsapp.Data.StarWarsVehicle;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -67,7 +69,7 @@ public class VolleyConnection {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.e("GET CHARACTER", "NOK");
-                            volleyListener.onCharacterError();
+                            volleyListener.onApiError();
                         }
                     }
             );
@@ -101,7 +103,7 @@ public class VolleyConnection {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("GET PLANET", "NOK");
-                        volleyListener.onCharacterError();
+                        volleyListener.onApiError();
                     }
                 }
         );
@@ -134,7 +136,75 @@ public class VolleyConnection {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.e("GET FILM", "NOK");
-                            volleyListener.onCharacterError();
+                            volleyListener.onApiError();
+                        }
+                    }
+            );
+            this.queue.add(request);
+        }
+    }
+
+    public void getVehiclesFromCharacter(final StarWarsCharacter character){
+        JsonObjectRequest request;
+
+        for(final String vehicleUrl : character.vehicles){
+            request = new JsonObjectRequest(
+                    Request.Method.GET,
+                    vehicleUrl,
+                    null,
+
+                    new Response.Listener<JSONObject>(){
+
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //Log.i("GET VEHICLE", "OK");
+                            Gson gson = new Gson();
+
+                            StarWarsVehicle vehicle = gson.fromJson(response.toString(), StarWarsVehicle.class);
+                            volleyListener.onVehicleAvailable(character, vehicle);
+                        }
+                    },
+
+                    new Response.ErrorListener(){
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("GET VEHICLE", "NOK");
+                            volleyListener.onApiError();
+                        }
+                    }
+            );
+            this.queue.add(request);
+        }
+    }
+
+    public void getStarshipsFromCharacter(final StarWarsCharacter character){
+        JsonObjectRequest request;
+
+        for(final String starshipUrl : character.starships){
+            request = new JsonObjectRequest(
+                    Request.Method.GET,
+                    starshipUrl,
+                    null,
+
+                    new Response.Listener<JSONObject>(){
+
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            //Log.i("GET STARSHIP", "OK");
+                            Gson gson = new Gson();
+
+                            StarWarsStarship starship = gson.fromJson(response.toString(), StarWarsStarship.class);
+                            volleyListener.onStarshipAvailable(character, starship);
+                        }
+                    },
+
+                    new Response.ErrorListener(){
+
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("GET STARSHIP", "NOK");
+                            volleyListener.onApiError();
                         }
                     }
             );

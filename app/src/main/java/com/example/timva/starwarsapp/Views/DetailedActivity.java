@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
 import com.example.timva.starwarsapp.Data.StarWarsFilm;
+import com.example.timva.starwarsapp.Data.StarWarsStarship;
+import com.example.timva.starwarsapp.Data.StarWarsVehicle;
 import com.example.timva.starwarsapp.R;
 
 import java.util.ArrayList;
@@ -38,13 +40,18 @@ public class DetailedActivity extends AppCompatActivity {
         characterName.setText(character.name);
         characterBirthyear.setText(getString(R.string.birthyear) + " " + character.birth_year);
 
-//        characterHomeworld.setText(getString(R.string.homeworld) + " " + character.homeworldPlanet.name);
-//
-//        ArrayList<String> filmTitles = new ArrayList<>();
-//        for(StarWarsFilm film : character.starWarsFilms)
-//            filmTitles.add(film.title);
-//        filmList.setAdapter(new ArrayAdapter<String>(this, 0, filmTitles));
+        characterHomeworld.setText(getString(R.string.homeworld) + " " + character.homeworldPlanet.name);
 
-        //vehicleList.setAdapter(new ArrayAdapter<String>(this, 0, character.getVehicles());
+        ArrayList<String> filmTitles = new ArrayList<>();
+        for(StarWarsFilm film : character.starWarsFilms)
+            filmTitles.add(film.title);
+        filmList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, filmTitles));
+
+        ArrayList<String> vehicleNames = new ArrayList<>();
+        for(StarWarsVehicle vehicle : character.starWarsVehicles)
+            vehicleNames.add(vehicle.name);
+        for(StarWarsStarship starship : character.starWarsStarships)
+            vehicleNames.add(starship.name);
+        vehicleList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, vehicleNames));
     }
 }

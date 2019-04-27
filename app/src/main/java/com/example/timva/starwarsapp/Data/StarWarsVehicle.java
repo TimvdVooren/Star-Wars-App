@@ -4,17 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 
 public class StarWarsVehicle implements Serializable {
-    private String name;
-    private String model;
-    private String manufacturer;
-    private String cost_in_credits;
-    private String length;
-    private String max_atmosphering_speed;
-    private String crew;
-    private String passengers;
-    private String cargo_capacity;
-    private String consumables;
-    private String vehicle_class;
-    private List<String> pilots;
-    private List<String> films;
+    public String name;
+    public String model;
+    public String manufacturer;
+    public String cost_in_credits;
+    public String length;
+    public String max_atmosphering_speed;
+    public String crew;
+    public String passengers;
+    public String cargo_capacity;
+    public String consumables;
+    public String vehicle_class;
+    public List<String> pilots;
+    public List<String> films;
 }

@@ -4,19 +4,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.timva.starwarsapp.Data.StarWarsFilm;
-import com.example.timva.starwarsapp.Data.StarWarsList;
 import com.example.timva.starwarsapp.Data.StarWarsPlanet;
-import com.example.timva.starwarsapp.Data.StarWarsStarShip;
+import com.example.timva.starwarsapp.Data.StarWarsStarship;
+import com.example.timva.starwarsapp.Data.StarWarsVehicle;
 import com.example.timva.starwarsapp.Services.CustomRecyclerAdapter;
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
 import com.example.timva.starwarsapp.R;
-import com.example.timva.starwarsapp.Services.RetrofitClient;
 import com.example.timva.starwarsapp.Services.VolleyConnection;
 import com.example.timva.starwarsapp.Services.VolleyListener;
 
@@ -24,11 +22,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity implements VolleyListener {
     //Views
@@ -142,18 +135,13 @@ public class MainActivity extends AppCompatActivity implements VolleyListener {
                         @Override
                         public int compare(StarWarsCharacter o1, StarWarsCharacter o2) {
                             if(o1.birth_year.equals("unknown"))
-                                o1.birth_year = "0BBY";
+                                return 1;
                             if(o2.birth_year.equals("unknown"))
-                                o2.birth_year = "0BBY";
+                                return -1;
 
                             double birthYear1 = Double.parseDouble(o1.birth_year.substring(0, o1.birth_year.length()-3));
                             double birthYear2 = Double.parseDouble(o2.birth_year.substring(0, o2.birth_year.length()-3));
 
-                            if(o1.birth_year.equals("0BBY"))
-                                o1.birth_year = "unknown";
-                            if(o2.birth_year.equals("0BBY"))
-                                o2.birth_year = "unknown";
-                            
                             return (int)(birthYear2 - birthYear1);
                         }
                     };
@@ -198,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements VolleyListener {
         for(StarWarsCharacter character : characterList) {
             connection.getPlanetFromCharacter(character);
             connection.getFilmsFromCharacter(character);
+            connection.getVehiclesFromCharacter(character);
         }
 
         sortButton.setEnabled(true);
@@ -215,12 +204,17 @@ public class MainActivity extends AppCompatActivity implements VolleyListener {
     }
 
     @Override
-    public void onStarshipAvailable(StarWarsCharacter character, StarWarsStarShip starShip) {
-
+    public void onVehicleAvailable(StarWarsCharacter character, StarWarsVehicle vehicle) {
+        character.starWarsVehicles.add(vehicle);
     }
 
     @Override
-    public void onCharacterError() {
+    public void onStarshipAvailable(StarWarsCharacter character, StarWarsStarship starship) {
+        character.starWarsStarships.add(starship);
+    }
+
+    @Override
+    public void onApiError() {
         Toast.makeText(getApplicationContext(), "Error: something went wrong with the API", Toast.LENGTH_LONG);
     }
 }
