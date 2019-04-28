@@ -15,13 +15,14 @@ import com.example.timva.starwarsapp.R;
 import com.example.timva.starwarsapp.Views.DetailedActivity;
 import com.example.timva.starwarsapp.Views.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder> {
     private Context context;
-    private List<StarWarsCharacter> characters;
+    private ArrayList<StarWarsCharacter> characters;
 
-    public CustomRecyclerAdapter(Context context, List<StarWarsCharacter> characters) {
+    public CustomRecyclerAdapter(Context context, ArrayList<StarWarsCharacter> characters) {
         this.context = context;
         this.characters = characters;
     }
@@ -49,6 +50,10 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
     @Override
     public int getItemCount() {
         return characters.size();
+    }
+
+    public ArrayList<StarWarsCharacter> getItems() {
+        return characters;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -90,6 +95,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                     if(getAdapterPosition() >= 0){
                         Intent detailIntent = new Intent(context, DetailedActivity.class);
                         detailIntent.putExtra("StarWarsCharacter", characters.get(getAdapterPosition()));
+                        detailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(detailIntent);
                     }
                 }
