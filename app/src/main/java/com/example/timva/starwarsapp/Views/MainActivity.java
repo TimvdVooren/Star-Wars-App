@@ -55,9 +55,12 @@ public class MainActivity extends AppCompatActivity implements VolleyListener {
         recyclerAdapter = new CustomRecyclerAdapter(this, characterList);
         recyclerView.setAdapter(recyclerAdapter);
 
+        //Set up the VolleyConnection
         connection = VolleyConnection.getInstance(getApplicationContext(), this);
+        //Get the characters from the API with Volley
         connection.getCharacters();
 
+        //Get the characters from the API with RetroFit
         //getCharactersFromApi();
 
         setListeners();
@@ -118,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements VolleyListener {
                 itr.remove();
     }
 
+    //Sets the listeners for the views that need one
     private void setListeners() {
         sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements VolleyListener {
         favouritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(favouritesPressed) {
+                if(!favouritesPressed) {
                     recyclerAdapter = new CustomRecyclerAdapter(getApplicationContext(), favourites);
                     favouritesButton.setText(getString(R.string.normal_list));
                 }

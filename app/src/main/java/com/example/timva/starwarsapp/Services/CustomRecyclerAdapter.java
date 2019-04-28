@@ -63,6 +63,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
             characterBirthyear = itemView.findViewById(R.id.ListBirthyear);
             favouriteButton = itemView.findViewById(R.id.ListFavouriteButton);
 
+            //Toggles the favourite state of a StarWarsCharacter and adds or removes it from the favourites list
             favouriteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -82,6 +83,7 @@ public class CustomRecyclerAdapter extends RecyclerView.Adapter<CustomRecyclerAd
                 }
             });
 
+            //Starts the DetailedActivity for a StarWarsCharacter when the associated item in the listView is clicked
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

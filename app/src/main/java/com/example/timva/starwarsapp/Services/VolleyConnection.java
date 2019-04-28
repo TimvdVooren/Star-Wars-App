@@ -36,6 +36,7 @@ public class VolleyConnection {
         return instance;
     }
 
+    //Gets all of the StarWarsCharacters from the API
     public void getCharacters(){
         String requestUrl;
         JsonObjectRequest request;
@@ -77,6 +78,7 @@ public class VolleyConnection {
         }
     }
 
+    //Gets the StarWarsPlanets associated with the given StarWarsCharacter from the API
     public void getPlanetFromCharacter(final StarWarsCharacter character){
         String planetUrl = character.homeworld;
         JsonObjectRequest request;
@@ -110,6 +112,7 @@ public class VolleyConnection {
         this.queue.add(request);
     }
 
+    //Gets the StarWarsFilms associated with the given StarWarsCharacter from the API
     public void getFilmsFromCharacter(final StarWarsCharacter character){
         JsonObjectRequest request;
 
@@ -144,6 +147,7 @@ public class VolleyConnection {
         }
     }
 
+    //Gets the StarWarsVehicles associated with the given StarWarsCharacter from the API
     public void getVehiclesFromCharacter(final StarWarsCharacter character){
         JsonObjectRequest request;
 
@@ -178,6 +182,7 @@ public class VolleyConnection {
         }
     }
 
+    //Gets the StarWarsStarships associated with the given StarWarsCharacter from the API
     public void getStarshipsFromCharacter(final StarWarsCharacter character){
         JsonObjectRequest request;
 

@@ -37,9 +37,9 @@ public class DetailedActivity extends AppCompatActivity {
 
         Intent characterIntent = getIntent();
         StarWarsCharacter character = (StarWarsCharacter) characterIntent.getSerializableExtra("StarWarsCharacter");
+
         characterName.setText(character.name);
         characterBirthyear.setText(getString(R.string.birthyear) + " " + character.birth_year);
-
         characterHomeworld.setText(getString(R.string.homeworld) + " " + character.homeworldPlanet.name);
 
         ArrayList<String> filmTitles = new ArrayList<>();
