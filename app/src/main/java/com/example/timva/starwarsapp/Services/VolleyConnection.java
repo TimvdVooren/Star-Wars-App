@@ -12,7 +12,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
 import com.example.timva.starwarsapp.Data.StarWarsFilm;
 import com.example.timva.starwarsapp.Data.StarWarsPlanet;
-import com.example.timva.starwarsapp.Data.StarWarsStarship;
+import com.example.timva.starwarsapp.Data.StarWarsStarShip;
 import com.example.timva.starwarsapp.Data.StarWarsVehicle;
 import com.google.gson.Gson;
 
@@ -199,7 +199,7 @@ public class VolleyConnection {
                             //Log.i("GET STARSHIP", "OK");
                             Gson gson = new Gson();
 
-                            StarWarsStarship starship = gson.fromJson(response.toString(), StarWarsStarship.class);
+                            StarWarsStarShip starship = gson.fromJson(response.toString(), StarWarsStarShip.class);
                             volleyListener.onStarshipAvailable(character, starship);
                         }
                     },

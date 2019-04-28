@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
 import com.example.timva.starwarsapp.Data.StarWarsFilm;
-import com.example.timva.starwarsapp.Data.StarWarsStarship;
+import com.example.timva.starwarsapp.Data.StarWarsStarShip;
 import com.example.timva.starwarsapp.Data.StarWarsVehicle;
 import com.example.timva.starwarsapp.R;
 
@@ -50,7 +50,7 @@ public class DetailedActivity extends AppCompatActivity {
         ArrayList<String> vehicleNames = new ArrayList<>();
         for(StarWarsVehicle vehicle : character.starWarsVehicles)
             vehicleNames.add(vehicle.name);
-        for(StarWarsStarship starship : character.starWarsStarships)
+        for(StarWarsStarShip starship : character.starWarsStarShips)
             vehicleNames.add(starship.name);
         vehicleList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, vehicleNames));
     }

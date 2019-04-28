@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.timva.starwarsapp.Data.StarWarsFilm;
 import com.example.timva.starwarsapp.Data.StarWarsPlanet;
-import com.example.timva.starwarsapp.Data.StarWarsStarship;
+import com.example.timva.starwarsapp.Data.StarWarsStarShip;
 import com.example.timva.starwarsapp.Data.StarWarsVehicle;
 import com.example.timva.starwarsapp.Services.CustomRecyclerAdapter;
 import com.example.timva.starwarsapp.Data.StarWarsCharacter;
@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements VolleyListener {
     //Views
@@ -247,8 +246,8 @@ public class MainActivity extends AppCompatActivity implements VolleyListener {
     }
 
     @Override
-    public void onStarshipAvailable(StarWarsCharacter character, StarWarsStarship starship) {
-        character.starWarsStarships.add(starship);
+    public void onStarshipAvailable(StarWarsCharacter character, StarWarsStarShip starship) {
+        character.starWarsStarShips.add(starship);
     }
 
     @Override
